@@ -1,35 +1,3 @@
-# gotimer
-
-### examples:
-
-```go
-package main
-
-import (
-	"fmt"
-	"time"
-
-	"github.com/gocpp/gotimer/timeheap"
-)
-
-// timer callback
-func selectHandler(id uint32) {
-	fmt.Printf("timerId:%d now:%v\n", id, time.Now())
-}
-
-func main() {
-	th := timeheap.New(selectHandler) // time heap
-	th.Start()                        // start
-
-	// add timer
-	th.AddTimer(1, 1*time.Second, false)
-
-	// wait
-	time.Sleep(2 * time.Second)
-}
-```
-
-```go
 package main
 
 import (
@@ -67,9 +35,12 @@ func main() {
 	for i := uint32(1); i <= 5; i++ {
 		th.AddTimer(i, 1*time.Second, true)
 	}
+	//add timer
 	th.AddTimer(6, 6*time.Second, false)
 
-	go stop(th) // stop timer
-	select {}
+	// stop timer
+	go stop(th)
+
+	// wait
+	time.Sleep(10 * time.Second)
 }
-```
